@@ -1,7 +1,10 @@
 package com.example.cettorre.androidvideoplayerplugin;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
@@ -10,6 +13,12 @@ import java.io.IOException;
 import java.net.URL;
 
 public class HttpService extends Service {
+    static String data;
+    static long paused;
+    static String restarted;
+    static String elapsed;
+    String pausedS;
+
     public HttpService() {
     }
 
@@ -23,6 +32,39 @@ public class HttpService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        Context con = null;
+        try {
+            con = createPackageContext("com.example.cettorre.androidvideoplayerplugin", Context.CONTEXT_IGNORE_SECURITY);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (con != null) {
+                SharedPreferences pref = con.getSharedPreferences(
+                        ".preferences", Context.MODE_WORLD_READABLE);
+
+                data = pref.getString("shared_token", "No Value");
+                paused = pref.getLong("paused", 99);
+                restarted = pref.getString("restarted", "No Value");
+                elapsed = pref.getString("elapsed", "No Value");
+                 pausedS=String.valueOf(paused);
+
+
+                Log.i("msg", "Other App Data: " + data);
+                Log.i("msg", "Other App Data: " + paused);
+                Log.i("msg", "Other App Data: " + restarted);
+                Log.i("msg", "Other App Data: " + elapsed);
+            } else {
+                Log.i("msg", "Other App Data: Context null");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
         play();
         makeRequest();
         return START_NOT_STICKY;
@@ -52,9 +94,12 @@ public class HttpService extends Service {
 
     private void makeRequest() {
 
-        requestUrl = NetworkUtils.buildUrl();
+        requestUrl = NetworkUtils.buildUrl(data,pausedS,restarted);
         new HttpService.SendRequestTask().execute(requestUrl);
+        Intent i = new Intent();
+        String paused=i.getStringExtra("dataIntentPaused");
         Log.e("req_url","request URL: "+requestUrl.toString());
+        Log.e("req_url","value"+paused);
 
     }
 
@@ -66,7 +111,7 @@ public class HttpService extends Service {
             String requestResults = null;
             try {
                 requestResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
-                Log.e("req_url","request resultL: "+requestResults.toString());
+                Log.e("req_url2","request resultL: "+requestResults.toString());
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -76,6 +121,8 @@ public class HttpService extends Service {
 
         @Override
         protected void onPostExecute(String githubSearchResults) {
+            Log.e("req_url","request resultL: ");
+
 
         }
     }

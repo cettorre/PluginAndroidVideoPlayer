@@ -83,10 +83,12 @@ public class SecondActivity extends AppCompatActivity {
 
 
         textView3 = findViewById(R.id.pausedTimes);
-        textView3.setText(dataIntentPaused);
+        //textView3.setText(dataIntentPaused);//data from intent extras
+        textView3.setText(String.valueOf(paused));//data from shared preferences
 
         textView2 = findViewById(R.id.restartedTimes);
-        textView2.setText(dataIntentRestarted);
+        //textView2.setText(dataIntentRestarted);
+        textView2.setText(restarted);
 
 
         //textView4 = findViewById(R.id.tv5);

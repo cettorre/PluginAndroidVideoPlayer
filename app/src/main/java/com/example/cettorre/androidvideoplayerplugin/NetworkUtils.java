@@ -38,6 +38,28 @@ public class NetworkUtils {
         return url;
     }
 
+    public static URL buildUrl(String s1,String s2, String s3) {
+        Uri builtUri = Uri.parse(BASE_URL).buildUpon()
+                .appendQueryParameter("param_1", s1)
+                .appendQueryParameter("paused", s2)
+                .appendQueryParameter("restarted", s3)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.i("urlcatch: " ,url.toString());
+
+
+
+        return url;
+    }
+
 
 
     public static String getResponseFromHttpUrl(URL url) throws IOException {
