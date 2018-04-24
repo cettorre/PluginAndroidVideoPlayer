@@ -1,18 +1,21 @@
 package com.example.cettorre.androidvideoplayerplugin;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.IOException;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
 
-    Button btn;
+    Button diaplayStats;
+    Button sendRequest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        btn=findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener(){
+        diaplayStats =findViewById(R.id.button);
+        diaplayStats.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
@@ -29,8 +32,50 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        sendRequest=findViewById(R.id.button2);
+        sendRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeRequest();
+            }
+        });
+
+
+
 
     }
 
+    URL requestUrl;
 
-}
+    private void makeRequest() {
+
+        requestUrl = NetworkUtils.buildUrl();
+        new SendRequestTask().execute(requestUrl);
+        Log.e("req_url","request URL: "+requestUrl.toString());
+
+    }
+
+    // COMPLETED (1) Create a class called GithubQueryTask that extends AsyncTask<URL, Void, String>
+    public class SendRequestTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected String doInBackground(URL... params) {
+            URL searchUrl = params[0];
+            String requestResults = null;
+            try {
+                requestResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
+                Log.e("req_url","request resultL: "+requestResults.toString());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return requestResults;
+        }
+
+        @Override
+        protected void onPostExecute(String githubSearchResults) {
+
+            }
+        }
+   }
+

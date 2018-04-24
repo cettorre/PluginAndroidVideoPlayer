@@ -13,12 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/tv2"
+        android:id="@+id/pausedTimes"
         android:text="value here"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/tv3"
+        android:id="@+id/restartedTimes"
         android:text="value here"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -27,6 +27,13 @@
         android:text="value here"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv5"
+        android:text="value here"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 
 </LinearLayout>
