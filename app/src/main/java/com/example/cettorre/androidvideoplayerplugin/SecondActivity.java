@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class SecondActivity extends AppCompatActivity {
     TextView textView2;
     TextView textView3;
     TextView textView4;
+    ListView lv;
     String data1;
     Context con;
     static String data;
@@ -75,21 +78,30 @@ public class SecondActivity extends AppCompatActivity {
         Log.i("arrayList",dataIntentElapsedList.toString());
 
 
-        textView = findViewById(R.id.tv1);
-        textView.setText(data);
+        //textView = findViewById(R.id.tv1);
+        //textView.setText(data);
 
-        textView1 = findViewById(R.id.pausedTimes);
-        textView1.setText(String.valueOf(dataIntentElapsed));
+
+        textView3 = findViewById(R.id.pausedTimes);
+        textView3.setText(dataIntentPaused);
 
         textView2 = findViewById(R.id.restartedTimes);
         textView2.setText(dataIntentRestarted);
 
-        textView3 = findViewById(R.id.tv4);
-        textView3.setText(dataIntentPaused);
 
-        textView4 = findViewById(R.id.tv5);
+        //textView4 = findViewById(R.id.tv5);
+       // if(dataIntentElapsedList!=null)
+       // textView4.setText(dataIntentElapsedList.toString());
+
+        lv=findViewById(R.id.elapsedListView);
+
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1,dataIntentElapsedList);
+
         if(dataIntentElapsedList!=null)
-        textView4.setText(dataIntentElapsedList.toString());
+
+            lv.setAdapter(adapter);
+
 
 
     }

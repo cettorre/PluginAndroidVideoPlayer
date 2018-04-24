@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button diaplayStats;
     Button sendRequest;
+    Button playService;
 
 
     @Override
@@ -40,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        playService=findViewById(R.id.button3);
+        playService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playService();
+            }
+        });
+
 
 
 
@@ -55,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // COMPLETED (1) Create a class called GithubQueryTask that extends AsyncTask<URL, Void, String>
     public class SendRequestTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -77,5 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    public void playService() {
+        Intent i = new Intent(this, HttpService.class);
+        startService(i);
+    }
    }
 
