@@ -16,33 +16,10 @@ public class NetworkUtils {
             "https://url.fakeurl.com/";
 
 
-    public static URL buildUrl() {
+    public static URL buildUrl(String s1,String s2) {
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
-                .appendQueryParameter("param_1", "value_1")
-                .appendQueryParameter("param_2", "value_2")
-                .appendQueryParameter("param_2", "value_3")
-                .build();
-
-        URL url = null;
-        try {
-            url = new URL(builtUri.toString());
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        Log.i("urlcatch: " ,url.toString());
-
-
-
-        return url;
-    }
-
-    public static URL buildUrl(String s1,String s2, String s3) {
-        Uri builtUri = Uri.parse(BASE_URL).buildUpon()
-                .appendQueryParameter("param_1", s1)
-                .appendQueryParameter("paused", s2)
-                .appendQueryParameter("restarted", s3)
+                .appendQueryParameter("paused", s1)
+                .appendQueryParameter("restarted", s2)
                 .build();
 
         URL url = null;

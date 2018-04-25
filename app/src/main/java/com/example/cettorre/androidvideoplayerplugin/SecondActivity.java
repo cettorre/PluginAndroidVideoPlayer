@@ -50,10 +50,8 @@ public class SecondActivity extends AppCompatActivity {
                 SharedPreferences pref = con.getSharedPreferences(
                         ".preferences", Context.MODE_WORLD_READABLE);
 
-                data = pref.getString("shared_token", "No Value");
-                paused = pref.getLong("paused", 99);
-                restarted = pref.getString("restarted", "No Value");
-                elapsed = pref.getString("elapsed", "No Value");
+                paused = pref.getLong("paused", 0);
+                restarted = pref.getString("restarted", "0");
 
 
                 Log.i("msg", "Other App Data: " + data);

@@ -17,13 +17,20 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send Http Request" />
+        android:text="Send Http Request Task" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Service" />
+        android:text="Start Http Service" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clear data" />
+
 
 
 </LinearLayout>

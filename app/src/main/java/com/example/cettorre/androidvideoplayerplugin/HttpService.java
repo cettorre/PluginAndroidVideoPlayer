@@ -29,7 +29,7 @@ public class HttpService extends Service {
         //throw new UnsupportedOperationException("Not yet implemented");
         return null;
     }
-
+    SharedPreferences pref;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -42,7 +42,7 @@ public class HttpService extends Service {
 
         try {
             if (con != null) {
-                SharedPreferences pref = con.getSharedPreferences(
+                 pref = con.getSharedPreferences(
                         ".preferences", Context.MODE_WORLD_READABLE);
 
                 data = pref.getString("shared_token", "No Value");
@@ -94,7 +94,7 @@ public class HttpService extends Service {
 
     private void makeRequest() {
 
-        requestUrl = NetworkUtils.buildUrl(data,pausedS,restarted);
+        requestUrl = NetworkUtils.buildUrl(pausedS,restarted);
         new HttpService.SendRequestTask().execute(requestUrl);
         Intent i = new Intent();
         String paused=i.getStringExtra("dataIntentPaused");
