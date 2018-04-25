@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.URL;
@@ -100,6 +101,8 @@ public class HttpService extends Service {
         String paused=i.getStringExtra("dataIntentPaused");
         Log.e("req_url","request URL: "+requestUrl.toString());
         Log.e("req_url","value"+paused);
+        Toast t=Toast.makeText(this,"A request has been sent to the following Http address: \n"+requestUrl.toString(),Toast.LENGTH_LONG);
+        t.show();
 
     }
 

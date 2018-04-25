@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -127,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
         requestUrl = NetworkUtils.buildUrl(String.valueOf(paused),restarted);
         new SendRequestTask().execute(requestUrl);
         Log.e("req_url","request URL: "+requestUrl.toString());
+        Toast t=Toast.makeText(this,"A request has been sent to the following Http address: \n"+requestUrl.toString(),Toast.LENGTH_LONG);
+        t.show();
 
     }
 
